@@ -2,9 +2,10 @@
 
 const express = require("express");
 const app = express();
+
 const articleRoutes = require("./articles");
 const productRoutes = require("./products");
-const port = 3001;
+const port = 3002;
 
 app.use(express.json());
 
