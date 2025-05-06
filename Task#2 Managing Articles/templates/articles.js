@@ -6,6 +6,7 @@ const db = require("../dbSingleton").getConnection();
 
 //H
 // Get the amount of articles
+// GET - http://localhost:3002/articles/count
 router.get("/count", (req, res) => {
   db.query("SELECT COUNT(*) AS count FROM articles", (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -15,7 +16,7 @@ router.get("/count", (req, res) => {
 
 //A
 // Add a new article
-
+//POST - http://localhost:3002/articles
 router.post("/", (req, res) => {
   const { title, content, author } = req.body;
   if (!title || !content || !author) {
@@ -33,9 +34,34 @@ router.post("/", (req, res) => {
   );
 });
 
-//B
-// Get an article by ID
+//G
+// Get articles ordered by creation date
+//GET - http://localhost:3002/articles/ordered-by-date
+router.get("/ordered-by-date", (req, res) => {
+  db.query(
+    "SELECT * FROM articles ORDER BY created_at DESC",
+    (err, results) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json(results);
+    }
+  );
+});
 
+//J
+// Get distinct number of authors
+//GET - http://localhost:3002/articles/distinct-authors
+
+router.get("/distinct-authors", (req, res) => {
+  db.query("SELECT DISTINCT author FROM articles", (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(results);
+  });
+});
+
+
+//B
+// Get all articles
+//GET - http://localhost:3002/articles
 router.get("/", (req, res) => {
   db.query("SELECT * FROM articles", (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -45,7 +71,7 @@ router.get("/", (req, res) => {
 
 //C
 // Get an article by ID
-
+//GET - http://localhost:3002/articles/1
 router.get("/:id", (req, res) => {
   db.query(
     "SELECT * FROM articles WHERE id = ?",
@@ -61,6 +87,7 @@ router.get("/:id", (req, res) => {
 
 //D
 // Delete an article by ID
+//DELETE -  http://localhost:3002/articles/1
 router.delete("/:id", (req, res) => {
   db.query(
     "DELETE FROM articles WHERE id = ?",
@@ -76,6 +103,7 @@ router.delete("/:id", (req, res) => {
 
 //E
 // Get articles by author
+//GET - http://localhost:3002/articles/author/Author 1
 router.get("/author/:author", (req, res) => {
   db.query(
     "SELECT * FROM articles WHERE author = ?",
@@ -89,6 +117,7 @@ router.get("/author/:author", (req, res) => {
 
 //F
 // Get articles created after a specific date
+// GET - http://localhost:3002/articles/created-after/2025-05-06
 router.get("/created-after/:date", (req, res) => {
   db.query(
     "SELECT * FROM articles WHERE created_at > ?",
@@ -100,20 +129,9 @@ router.get("/created-after/:date", (req, res) => {
   );
 });
 
-//G
-// Get articles ordered by creation date
-router.get("/ordered-by-date", (req, res) => {
-  db.query(
-    "SELECT * FROM articles ORDER BY created_at DESC",
-    (err, results) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json(results);
-    }
-  );
-});
-
 //I
 // Get articles with titles matching a pattern
+//GET - http://localhost:3002/articles/search/sample
 router.get("/search/:pattern", (req, res) => {
   db.query(
     "SELECT * FROM articles WHERE title LIKE ?",
@@ -125,13 +143,5 @@ router.get("/search/:pattern", (req, res) => {
   );
 });
 
-//J
-// Get distinct number of authors
-router.get("/distinct-authors", (req, res) => {
-  db.query("SELECT DISTINCT author FROM articles", (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(results);
-  });
-});
 
 module.exports = router;
