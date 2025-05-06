@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2025 at 11:58 AM
+-- Generation Time: May 06, 2025 at 04:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -50,7 +50,8 @@ INSERT INTO `articles` (`id`, `title`, `content`, `author`, `created_at`, `updat
 (7, 'Template article 7', 'Text of article 7', 'Author 7', '2025-05-03 14:00:22', '2025-05-03 14:00:22'),
 (8, 'Template article 8', 'Text of article 8', 'Author 8', '2025-05-03 14:00:22', '2025-05-03 14:00:22'),
 (9, 'Template article 9', 'Text of article 9', 'Author 9', '2025-05-03 14:00:22', '2025-05-03 14:00:22'),
-(10, 'Template article 10', 'Text of article 10', 'Author 10', '2025-05-03 14:00:22', '2025-05-03 14:00:22');
+(10, 'Template article 10', 'Text of article 10', 'Author 10', '2025-05-03 14:00:22', '2025-05-03 14:00:22'),
+(11, 'Sample Title', 'Sample content', 'Author Name', '2025-05-06 14:23:11', '2025-05-06 14:23:11');
 
 --
 -- Indexes for dumped tables
@@ -70,7 +71,7 @@ ALTER TABLE `articles`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
